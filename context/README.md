@@ -1,24 +1,25 @@
-# Context — O impacto do CLAUDE.md
+# Context — O ecossistema do Claude Code
 
 Demos do **Apêndice B — Na prática: seu agente de programação**.
 
-Dois projetos idênticos. Mesmo código. Mesma ferramenta. Mesmos pedidos.
-A única diferença é o que o Claude recebe antes de começar a trabalhar.
+Cinco versões do mesmo projeto `api-tarefas`. Mesmo código. Mesma ferramenta.
+Cada etapa adiciona uma camada do ecossistema do Claude Code e mostra o que muda.
 
-## Demos
+## A progressão
 
-### [`01-sem-contexto/`](./01-sem-contexto/)
-
-O projeto `api-tarefas` sem nenhuma instrução. O Claude trabalha com
-julgamento próprio — escolhe estrutura, convenções e frameworks por conta.
-
-### [`02-com-contexto/`](./02-com-contexto/)
-
-O mesmo projeto com `CLAUDE.md` e uma rule importada. O Claude segue
-as convenções do projeto sem precisar ser lembrado a cada pedido.
+| Etapa | O que tem | O que o Claude faz diferente |
+|-------|-----------|------------------------------|
+| [`01-sem-contexto/`](./01-sem-contexto/) | Nada | Inventa estrutura, convenções e decisões |
+| [`02-com-contexto/`](./02-com-contexto/) | CLAUDE.md básico (stack + estrutura) | Segue a stack, respeita a arquitetura |
+| [`03-com-rules/`](./03-com-rules/) | + duas rules importadas | Aplica convenções sem ser lembrado |
+| [`04-com-skills/`](./04-com-skills/) | + skill `/criar-tarefa` | Executa procedimentos que você definiu uma vez |
+| [`05-com-memoria/`](./05-com-memoria/) | + arquivos de memória | Trabalha como se conhecesse o projeto há semanas |
 
 ## Como usar
 
-Abra cada pasta em terminais separados, faça os mesmos pedidos,
-e compare o que é gerado. Os READMEs de cada pasta têm os pedidos
-prontos para copiar.
+Cada pasta tem um `README.md` com os pedidos para experimentar.
+Abra as pastas em terminais separados e compare as respostas para o mesmo pedido.
+
+O objetivo não é decorar os arquivos. É sentir a diferença que cada camada faz —
+e entender por que um Claude com contexto não é um Claude mais inteligente,
+é um Claude com mais informação.
