@@ -1,56 +1,25 @@
-# Agents — Java Code Generator & Refactorer
+# Agents — Loop Agentic com Tool Calling
 
-Two agentic scripts that use a local LLM to generate or refactor Java/Spring Boot code.
-The model runs in a tool-calling loop, writing one file at a time until it calls `finalizar`.
+Demos do **Capítulo 10 — Agentes**.
 
-## How it works
+Um agente não responde. Ele age: chama uma ferramenta, observa o resultado, decide o
+próximo passo, repete. Este diretório mostra esse padrão em funcionamento — um modelo
+de linguagem que escreve arquivos Java, um por vez, até considerar a tarefa concluída.
 
-```
-User request
-    ↓
-LLM (tool calling loop)
-    ├── escrever_arquivo("entity/Foo.java", "...") → writes file
-    ├── escrever_arquivo("service/FooService.java", "...") → writes file
-    └── finalizar("Generated 8 files") → done
-```
+## Demos
 
-Responses stream token by token via SSE (`stream: true` + `curl -sN`).
+### [`01-loop-create/`](./01-loop-create/)
 
-## Scripts
+O agente recebe um pedido e gera código Java do zero, arquivo por arquivo,
+usando tool calling e streaming SSE.
 
-### `create.py` — Generate new code
+### [`02-loop-refactor/`](./02-loop-refactor/)
 
-```bash
-# Without guideline
-python3 create.py "Create a full CRUD for RepairShop with id UUID, name and status enum"
+O agente recebe arquivos Java existentes e aplica refatorações, seguindo
+as mesmas ferramentas e o mesmo padrão de loop.
 
-# With guideline
-python3 create.py "Create a full CRUD for RepairShop" --guideline guideline.md
-```
+## Requisitos
 
-### `refactor.py` — Refactor existing code
-
-```bash
-# Without guideline
-python3 refactor.py "Add Lombok and constructor injection" --files output/entity/Foo.java
-
-# With guideline
-python3 refactor.py "Apply the guideline" --guideline guideline.md \
-  --files output/entity/Foo.java output/service/FooService.java
-```
-
-## Configuration
-
-Edit the constants at the top of each script:
-
-| Constant | Description |
-|----------|-------------|
-| `MODEL` | Model name as exposed by LiteLLM/Ollama |
-| `API_KEY` | API key for the Kong gateway |
-| `CLOUDFLARED` | Path to cloudflared binary (for SSH tunnel) |
-| `OUTPUT_DIR` | Where generated files are written (default: `./output/`) |
-
-## Output
-
-Generated files are written to `./output/` and printed to the terminal at the end.
-The folder is wiped on each run.
+- Python 3.11+
+- Acesso SSH a um servidor com Ollama + LiteLLM
+  (ou adaptar `call_model()` para qualquer endpoint OpenAI-compatible)
