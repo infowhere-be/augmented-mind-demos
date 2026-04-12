@@ -3,3 +3,12 @@ __pycache__/
 .env
 output/
 .DS_Store
+.idea/
+
+# Claude Code — estado local e sessões (não versionar)
+.claude/projects/
+.claude/status.json
+.claude/weekly_tokens.json
+.claude/*.jsonl
+
+# CLAUDE.md, .claude/rules/ e .claude/skills/ SÃO versionados — são a demo
