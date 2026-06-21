@@ -1,31 +1,63 @@
 # Augmented Mind — Demos
 
-Companion code for the book **"Desvendando a Mente Aumentada"** (Casa do Código).
+Código companion do livro **"Desvendando a Mente Aumentada"** (Casa do Código).
 
-Each folder contains a self-contained demo that illustrates a concept from the book.
-You can run them independently — no shared dependencies between folders.
+Cada pasta é um demo auto-contido que ilustra um conceito do livro. Podem ser
+executados de forma independente — não há dependências partilhadas entre pastas.
 
 ## Demos
 
-### [`agents/`](./agents/)
+### [`agents/`](./agents/) — Capítulo 10 (Agentes)
 
-Agentic loop demos: a local LLM that generates and refactors Java code file by file,
-using tool calling and streaming SSE. Covers the concepts in **Chapter 10 — Agents**.
+Loop agentic com tool calling e streaming SSE: um LLM local que gera e refactora
+código Java ficheiro a ficheiro, decidindo um passo de cada vez até concluir a tarefa.
 
-### [`monitor/`](./monitor/)
+- [`01-loop-create/`](./agents/01-loop-create/) — gera código Java do zero
+- [`02-loop-refactor/`](./agents/02-loop-refactor/) — aplica refactoring a código existente
 
-Claude Monitor — a terminal UI that shows Claude's thinking process in real time.
+### [`context/`](./context/) — Apêndice B (O ecossistema do Claude Code)
 
-### [`examples/`](./examples/)
+Cinco versões do mesmo projeto `api-tarefas` (Node.js/Express). Mesmo código, mesma
+ferramenta — cada etapa adiciona uma camada do ecossistema do Claude Code e mostra
+o que muda na resposta do agente.
 
-Additional standalone examples added throughout the book.
+- [`01-sem-contexto/`](./context/01-sem-contexto/) — sem CLAUDE.md
+- [`02-com-contexto/`](./context/02-com-contexto/) — CLAUDE.md básico
+- [`03-com-rules/`](./context/03-com-rules/) — + rules importadas
+- [`04-com-skills/`](./context/04-com-skills/) — + skill `/criar-tarefa`
+- [`05-com-memoria/`](./context/05-com-memoria/) — + ficheiros de memória
 
-## Requirements
+### `monitor/` e `examples/`
 
-- Python 3.11+
-- SSH access to a server running Ollama + LiteLLM (or adapt the `call_model()` function
-  to point to any OpenAI-compatible endpoint)
+Reservados para demos planeados (ver [`BACKLOG.md`](./BACKLOG.md)). Ainda sem conteúdo.
 
-## Book
+## Tecnologias
 
-Published by [Casa do Código](https://www.casadocodigo.com.br).
+- **agents/**: Python 3.11+ (gera código Java como output)
+- **context/**: Node.js / Express (projecto `api-tarefas` usado como cenário)
+
+## Requisitos
+
+- Python 3.11+ (para os demos de `agents/`)
+- Node.js (para correr o `api-tarefas` dos demos de `context/`)
+- Acesso SSH a um servidor com Ollama + LiteLLM, ou adaptar a função `call_model()`
+  para qualquer endpoint compatível com OpenAI
+
+## Como usar
+
+Cada demo tem o seu próprio `README.md` com as instruções de execução. Exemplos:
+
+```bash
+# Loop agentic (agents/)
+cd agents/01-loop-create
+python3 create.py "Crie um CRUD completo para RepairShop com id UUID, name e status"
+
+# Projecto api-tarefas (context/)
+cd context/01-sem-contexto/api-tarefas
+npm install
+npm start
+```
+
+## Livro
+
+Publicado pela [Casa do Código](https://www.casadocodigo.com.br).
